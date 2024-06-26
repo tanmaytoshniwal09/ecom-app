@@ -4,7 +4,7 @@ import { Grid, TextField, Typography } from "@mui/material";
 export const Container = styled(Grid)({
   background: "black",
   justifyContent: "center",
-  height: "340px",
+  height: "440px",
   padding: "80px 0px 24px 0px",
   gap: "20px",
 });

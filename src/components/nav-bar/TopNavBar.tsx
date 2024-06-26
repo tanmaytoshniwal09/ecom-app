@@ -31,8 +31,7 @@ const TopNavBar = () => {
   
 
   const handleLanguageChange = (lang: string) => {
-    setInputValues({ ...inputValues, language: lang });
-    handleMenuClose();
+    setInputValues({ ...inputValues, language: lang, anchorEl: null });
   };
 
   const handleLanguageListClick = (event: React.MouseEvent<HTMLElement>) => {
