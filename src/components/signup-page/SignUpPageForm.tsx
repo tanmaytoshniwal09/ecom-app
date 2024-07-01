@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
-// import {yupResolver} from "@hookform/resolvers/yup";
+// import {yupResolver} from "@hookform/resolvers/yup
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FormContainer, FormGroup, SubmitButton } from "./LoginFormStyles";
-import {  TextField, Typography } from "@mui/material";
-import { useNavigate ,} from "react-router";
-import {  Link } from "react-router-dom";
+import {
+  FormContainer,
+  FormGroup,
+  SubmitButton,
+  GoogleButton,
+  LoginText,
+} from "./SignUpPageFormStyles";
+import { TextField, Typography } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+
 const schema = yup.object().shape({
-  
+  name: yup
+    .string()
+    .required("Name is required")
+    .matches(/^[aA-zZ\s]+$/, "Only Alphabet")
+    .min(3, "Minimum 3 letters are required"),
   emailOrPhone: yup
     .string()
     .required("Email or Phone Number is required")
@@ -25,15 +35,14 @@ const schema = yup.object().shape({
 });
 
 interface IFormInput {
-
+  name: string;
   emailOrPhone: string;
   password: string;
-  isLogin?:boolean;
 }
 
-const LoginPageForm = () => {
+const SignUpPageForm = () => {
   const navigate = useNavigate();
-  const isLogin = false;
+
   const {
     register,
     handleSubmit,
@@ -44,21 +53,13 @@ const LoginPageForm = () => {
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
-  
-    // Retrieve stored credentials
-    const storedEmailOrPhone = localStorage.getItem("userId");
-    const storedPassword = localStorage.getItem("password");
-  
-    // Check if the entered credentials match the stored credentials
-    if (data.emailOrPhone === storedEmailOrPhone && data.password === storedPassword) {
-      alert("Credentials are correct. Redirecting to dashboard...");
-      localStorage.setItem('isLogin', JSON.stringify(true));
-      navigate("/dashboard");
-    } else {
-      alert("Incorrect username or password");
-    }
+    // Save to local storage
+    localStorage.setItem("userId", data.emailOrPhone);
+    localStorage.setItem("password", data.password);
+    alert("Account created and data saved to local storage");
+    navigate("/login");
   };
-  
+
   return (
     <FormContainer sx={{ padding: "0px" }}>
       <Typography
@@ -72,7 +73,7 @@ const LoginPageForm = () => {
           marginBottom: "20px",
         }}
       >
-        Log in to Exclusive
+        Create an account
       </Typography>
       <Typography
         sx={{
@@ -89,13 +90,31 @@ const LoginPageForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormGroup>
           <TextField
+            label="Name"
+            variant="standard"
+            fullWidth
+            {...register("name")}
+            error={!!errors.name}
+            helperText={errors.name?.message}
+            sx={{
+              fontFamily: "Poppins",
+              fontSize: "16px",
+              fontWeight: "400",
+              lineHeight: "24px",
+              textAlign: "left",
+              marginBottom: "20px",
+            }}
+          />
+        </FormGroup>
+        <FormGroup>
+          <TextField
             label="Email or Phone Number"
             variant="standard"
+            fullWidth
             {...register("emailOrPhone")}
             error={!!errors.emailOrPhone}
             helperText={errors.emailOrPhone?.message}
             sx={{
-              width: "341px",
               fontFamily: "Poppins",
               fontSize: "16px",
               fontWeight: "400",
@@ -110,11 +129,11 @@ const LoginPageForm = () => {
             label="Password"
             type="password"
             variant="standard"
+            fullWidth
             {...register("password")}
             error={!!errors.password}
             helperText={errors.password?.message}
             sx={{
-              width: "341px",
               fontFamily: "Poppins",
               fontSize: "16px",
               fontWeight: "400",
@@ -124,38 +143,40 @@ const LoginPageForm = () => {
             }}
           />
         </FormGroup>
-        <div
+        <SubmitButton type="submit" variant="contained" fullWidth>
+          Create Account
+        </SubmitButton>
+      </form>
+      <GoogleButton variant="contained">
+        <img
+          src="/assets/login-page/Icon-Google.png"
+          alt="Google Play"
+          style={{ width: "24px", height: "24px", marginRight: "10px" }}
+        />
+        <Typography sx={{ flex: 1 }}> Sign up with Google</Typography>
+      </GoogleButton>
+
+      <LoginText>
+        Already have an account?{" "}
+        <Link
+         to="/login"
           style={{
-            display: "flex",
-            width: "341px",
-            height: "56px",
-            justifyContent: "space-between",
-            alignContent: "center",
+            marginLeft: "5px",
+            marginTop: "20px",
+            textAlign: "center",
+            fontFamily: "Poppins",
+            fontSize: "16px",
+            fontWeight: "400",
+            lineHeight: "24px",
+            color: "#000000",
           }}
         >
-          <SubmitButton type="submit" variant="contained" fullWidth>
-            Log In
-          </SubmitButton>
-          <Link
-            to="/ForgotPassword"
-            style={{
-              marginLeft: "5px",
-              marginTop: "20px",
-              textAlign: "center",
-              fontFamily: "Poppins",
-              fontSize: "16px",
-              fontWeight: "400",
-              lineHeight: "24px",
-              color: " #DB4444",
-            }}
-          >
-            {" "}
-            Forget Password?
-          </Link>
-        </div>
-      </form>
+          {" "}
+          Log in
+        </Link>
+      </LoginText>
     </FormContainer>
   );
 };
 
-export default LoginPageForm;
+export default SignUpPageForm;

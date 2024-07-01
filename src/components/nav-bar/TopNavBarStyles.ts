@@ -1,9 +1,11 @@
 // TopNavBarStyles.ts
 import { styled } from "@mui/material/styles";
-import { Grid, Typography, TextField, IconButton, MenuItem, Menu } from "@mui/material";
+import { Grid, Typography, TextField, IconButton } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { Link } from "react-router-dom";
 
 export const TopBanner = styled(Grid)(({ theme }) => ({
+  width: "100%",
   background: "black",
   height: "48px",
   padding: "12px 24px",
@@ -40,24 +42,31 @@ export const LogoText = styled(Typography)(({ theme }) => ({
   textAlign: "left",
 }));
 
-export const NavLinkText = styled(Typography)(({ theme }) => ({
+export const NavLinkText = styled(Link)(({ theme }) => ({
   color: "black",
   fontFamily: "Poppins",
   fontSize: "16px",
   fontWeight: 400,
   lineHeight: "24px",
   textAlign: "center",
+  textDecoration: "none", // Remove underline
+  padding: "8px 16px",
+  borderRadius: "4px",
+  transition: "all 0.3s ease-in-out", // Add transition effect
+  "&:hover, &:focus": {
+    backgroundColor: theme.palette.grey[200], // Elevate the selected field
+    boxShadow: theme.shadows[4],
+    textDecoration: "none", // Ensure underline is not added on hover/focus
+  },
 }));
 
 export const SearchField = styled(TextField)(({ theme }) => ({
   width: "280px",
   height: "38px",
   background: "#FFFFFF",
-//   padding: "7px 12px 7px 20px",
   gap: "10px",
   borderRadius: "4px 0px 0px 0px",
   marginBottom: "16px",
-
 }));
 
 export const LanguageIconButton = styled(IconButton)(({ theme }) => ({
