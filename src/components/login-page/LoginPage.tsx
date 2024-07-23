@@ -1,68 +1,73 @@
 import React from "react";
-import { Grid, Box } from "@mui/material";
-import LoginPageForm from "./LoginPageForm";
+import { Grid, useMediaQuery, Box } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import LoginPageForm from "./LoginPageForm"; // Adjust the import according to your file structure
 
 const LoginPage = () => {
+  const theme = useTheme();
+  const isLessThan1500px = useMediaQuery(theme.breakpoints.down("xl"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const imageStyles = isLessThan1500px
+    ? {
+        width: "auto",
+        maxWidth: "100%", // Adjusted max width for smaller screens
+        height: "auto",
+        minHeight: "60vh",
+        objectFit: "cover",
+      }
+    : {
+        width: "100%",
+        maxWidth: "919px",
+        height: "auto",
+        minHeight: "706px",
+        objectFit: "cover",
+      };
+
+  const gridItemStyles = isSmallScreen
+    ? {
+        marginTop: "20px", // Adjust margin top for small screens
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }
+    : {};
+
   return (
-    <Grid
-      container
-      justifyContent="center"
-      alignItems="center"
-      sx={{ minHeight: "100vh", padding: "20px" }}
-      direction={"row"}
-    >
+    <Grid container direction="row" alignItems="center" marginBottom={40}>
       <Grid
-        container
         item
         xs={12}
-        md={12}
-        lg={12}
-        xl={12}
-        spacing={2}
-        alignItems="center"
-        justifyContent="center"
-        direction={{ xs: "row", md: "row", lg: "row", xl: "row" }} // Direction based on breakpoints
-        sx={{ gap: "20px" }}
+        md={6}
+        sx={{
+          justifyItems: "flex-start",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          ...gridItemStyles,
+        }}
       >
-        <Grid
-          item
-          xs={6}
-          md={6}
-          sx={{
-            position: "relative",
-            left: "-120px",
-            top: "-40px",
-            display: "flex",
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
-          width={"fit-content"}
-        >
-          <Box
-            component="img"
-            src="/assets/login-page/Side Image.png"
-            alt="Side Image"
-            sx={{
-              width: "919px",
-              maxWidth: "919px",
-              height: "auto",
-              minHeight: "706px",
-            }}
-          />
-        </Grid>
-        <Grid
-          item
-          xs={6}
-          md={5}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-          width={"fit-content"}
-        >
-          <LoginPageForm />
-        </Grid>
+        <Box
+          component="img"
+          src="/assets/login-page/Side Image.png"
+          alt="Side Image"
+          sx={imageStyles}
+        />
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        md={6}
+        sx={
+          isSmallScreen
+            ? {
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }
+            : { xs: { marginTop: "60px" } }
+        }
+      >
+        <LoginPageForm />
       </Grid>
     </Grid>
   );

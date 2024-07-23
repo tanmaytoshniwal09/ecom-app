@@ -4,7 +4,7 @@ import { Grid, Typography, TextField, IconButton } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Link } from "react-router-dom";
 
-export const TopBanner = styled(Grid)(({ theme }) => ({
+export const TopBannerStyle = styled(Grid)(({ theme }) => ({
   width: "100%",
   background: "black",
   height: "48px",
@@ -37,9 +37,15 @@ export const LogoText = styled(Typography)(({ theme }) => ({
   fontFamily: "Inter",
   fontSize: "24px",
   fontWeight: 700,
-  lineHeight: "24px",
+   height:"100%",
+   width:"fit-content",
   letterSpacing: "0.03em",
-  textAlign: "left",
+  // textAlign: "left",
+  color: "black",
+  margin:"0px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
 }));
 
 export const NavLinkText = styled(Link)(({ theme }) => ({
@@ -58,15 +64,18 @@ export const NavLinkText = styled(Link)(({ theme }) => ({
     boxShadow: theme.shadows[4],
     textDecoration: "none", // Ensure underline is not added on hover/focus
   },
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
 }));
 
 export const SearchField = styled(TextField)(({ theme }) => ({
-  width: "280px",
-  height: "38px",
+  width: "fit-content",
+  height: "30px",
   background: "#FFFFFF",
   gap: "10px",
   borderRadius: "4px 0px 0px 0px",
-  marginBottom: "16px",
+  marginBottom: "10px",
 }));
 
 export const LanguageIconButton = styled(IconButton)(({ theme }) => ({
@@ -81,5 +90,5 @@ export const HorizontalLine = styled(Grid)(({ theme }) => ({
   borderTop: "1px solid lightgray",
   margin: "16px 0",
   width: "100%",
-  opacity: 0.3,
+  opacity: 1,
 }));

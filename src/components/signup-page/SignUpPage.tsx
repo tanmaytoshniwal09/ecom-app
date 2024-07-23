@@ -1,41 +1,63 @@
 import React from "react";
+import { Grid, useMediaQuery, Box } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 import SignUpPageForm from "./SignUpPageForm"
 
 const SignUpPage = () => {
+  const theme = useTheme();
+  const isLessThan1500px = useMediaQuery(theme.breakpoints.down("xl"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const imageStyles = isLessThan1500px
+    ? {
+        width:"auto",
+        maxWidth: "100%", // Adjusted max width for smaller screens
+        height: "auto",
+        minHeight: "60vh", 
+        objectFit: "cover",
+      }
+    : {
+        width: "100%",
+        maxWidth: "919px",
+        height: "auto",
+        minHeight: "706px",
+        objectFit: "cover",
+      };
+
+  const gridItemStyles = isSmallScreen
+    ? {
+        marginTop: "20px", // Adjust margin top for small screens
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }
+    : {};
+
   return (
-    <div
-      style={{
-        width: "1305px",
-        height: " 781px",
-        top: "200px",
-        gap: "129px",
-        opacity: "0px",
-        display:"flex",
-        justifyContent:"space-between",
-        alignItems:"center",
-        alignContent:"center",
-      }}
-    >
-      <div
-        style={{
-          width: "805px",
-          height: "781px",
-          padding: "75px 0px 0px 0px",
-          gap: "0px",
-          borderRadius: "0px 4px 4px 0px",
-          opacity: "0px",
-          marginRight:"200px",
-        }}
+    <Grid container direction="row" alignItems="center" marginBottom={40} alignContent={"center"}>
+      <Grid
+        item
+        xs={12}
+        md={6}
+        sx={{ justifyItems:"flex-start", justifyContent: "flex-start", alignItems: "center", ...gridItemStyles }}
       >
-        <img
+        <Box
+          component="img"
           src="/assets/login-page/Side Image.png"
-          alt="Google Play"
-          style={{ width: "919px", height: "706px",top:"75px",left:"-8px"}}
-        ></img>
-      </div>
-      <SignUpPageForm/>
-    </div>
+          alt="Side Image"
+          sx={imageStyles}
+        />
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        md={6}
+        sx={isSmallScreen ? { display: "flex", justifyContent: "center", alignItems: "center" } : {xs:{marginTop:"60px"}}}
+      >
+       <SignUpPageForm/>
+      </Grid>
+    </Grid>
   );
 };
 

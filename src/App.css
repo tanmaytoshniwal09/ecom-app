@@ -38,11 +38,12 @@
   }
 } */
 .App {
-  text-align: center;
+  /* text-align: center; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* background-color: #61dafb; */
+  /* justify-content: space-between; */
 }
 
 .main-content {

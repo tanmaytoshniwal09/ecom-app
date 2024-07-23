@@ -94,14 +94,14 @@ export const CartProductButton = styled.button`
 export const CartProductQuantity = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 export const QuantityButton = styled.button`
   border: none;
   outline: none;
   background: none;
-  padding: 0.5rem;
+  /* padding: 0.5rem; */
   cursor: pointer;
 `;
 

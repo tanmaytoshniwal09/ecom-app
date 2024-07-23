@@ -4,9 +4,10 @@ import { Grid, TextField, Typography } from "@mui/material";
 export const Container = styled(Grid)({
   background: "black",
   justifyContent: "center",
-  height: "440px",
+  height: "fit-content",
   padding: "80px 0px 24px 0px",
   gap: "20px",
+  width: "100%",
 });
 
 export const Item = styled(Grid)({
@@ -55,10 +56,3 @@ export const CustomTextField = styled(TextField)({
   width: "calc(100%-20px)",
 });
 
-export const SocialContainer = styled("div")({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  width: "40%",
-  marginLeft: "10px",
-});
